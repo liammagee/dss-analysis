@@ -8,9 +8,9 @@ Data taken from [DSS Payment Demographic Data](https://data.gov.au/data/dataset/
 
 DSP, Newstart and Newstart with Partial Capacity to Work:
 
-![Disability Support Pension and Newstart Figures](https://raw.githubusercontent.com/liammagee/dss-analysis/master/chart1.png "Disability Support Pension and Newstart Figures")
+![DSP, Newstart and Newstart with Partial Capacity to Work](https://raw.githubusercontent.com/liammagee/dss-analysis/master/chart1.png "DSP, Newstart and Newstart with Partial Capacity to Work")
 
 
 Changes to DSP and Newstart with Partial Capacity to Work:
 
-![Disability Support Pension and Newstart Figures](https://raw.githubusercontent.com/liammagee/dss-analysis/master/chart1.png "Disability Support Pension and Newstart Figures")
+![Changes to DSP and Newstart with Partial Capacity to Work](https://raw.githubusercontent.com/liammagee/dss-analysis/master/chart2.png "Changes to DSP and Newstart with Partial Capacity to Work")
