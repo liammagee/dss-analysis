@@ -8,5 +8,5 @@ Data taken from [DSS Payment Demographic Data](https://data.gov.au/data/dataset/
 
 Indicative output:
 
-[Disability Support Pension and Newstart Figures](chart.jpg "Disability Support Pension and Newstart Figures")
+![Disability Support Pension and Newstart Figures](https://raw.githubusercontent.com/liammagee/dss-analysis/master/chart.png "Disability Support Pension and Newstart Figures")
 
