@@ -392,7 +392,8 @@ df$Pct.Partial.NS <- ( ( df$Partial.NS / df[length(df$Partial.NS), 'Partial.NS']
 
 dfm6 <- melt(df, id.vars = c("Date"), measure.vars = c('Pct.DSP.16.20', 'Pct.DSP.21.24', 'Pct.DSP.25.34', 'Pct.DSP.35.44', 'Pct.DSP.45.54', 'Pct.DSP.55.64', 'Pct.DSP.65', 'Pct.Partial.NS'))
 dfm6$strdate <- strftime(dfm6$Date, "%b %y")
-dfm6
+dfm6a <- melt(df, id.vars = c("Date"), measure.vars = c('Pct.DSP.16.20', 'Pct.DSP.21.24', 'Pct.DSP.25.34', 'Pct.DSP.35.44', 'Pct.DSP.45.54', 'Pct.DSP.55.64', 'Pct.DSP.65'))
+dfm6a$strdate <- strftime(dfm6a$Date, "%b %y")
 
 head(df)
 
@@ -400,25 +401,44 @@ p6 <- ggplot(data=dfm6, aes(x=reorder(strdate, Date), y=value)) +
   geom_bar(stat="identity", aes(fill=variable), width = 0.6, position=position_dodge(width = 0.7)) +
   theme_bw()  +
   scale_x_discrete(breaks = dfm$strdate, labels = dfm$strdate) +
-  
+  scale_y_continuous(labels = function(b) { paste(b, '%', sep='')}) +
   scale_fill_brewer(palette="Dark2", name = "", labels = c("DSP, Aged 16-20", 
                                                            "DSP, Aged 21-24", 
                                                            "DSP, Aged 25-34", 
                                                            "DSP, Aged 35-44", 
                                                            "DSP, Aged 45-54", 
                                                            "DSP, Aged 55-64", 
-                                                           "DSP, Aged 65 and over",
-                                                           "JobSeeker with Partial Capacity to Work")) +
-  labs(title = "DSP by Age; JobSeeker with Partial Capacity to Work", subtitle = "Percentile Change from June 2014, to March 2021. Source: DSS Payment Demographic Data.", x = "", y="") +
+                                                           "DSP, Aged 65+",
+                                                           "JobSeeker, PCW")) +
+  labs(title = "DSP by Age; JobSeeker with Partial Capacity to Work (PCW)", subtitle = "Percentile Change from June 2014, to March 2021. Source: DSS Payment Demographic Data.", x = "", y="") +
   theme(
-    legend.position="bottom",
+    legend.position="right",
     legend.direction = "vertical",
     axis.text.x = element_text(angle = 45, vjust = 0.5, hjust = 0.75),
     axis.text.y = element_text())
-
-
 p6
 ggsave("chart6.png", p6)
+
+p6a <- ggplot(data=dfm6a, aes(x=reorder(strdate, Date), y=value)) +
+  geom_bar(stat="identity", aes(fill=variable), width = 0.6, position=position_dodge(width = 0.7)) +
+  theme_bw()  +
+  scale_x_discrete(breaks = dfm$strdate, labels = dfm$strdate) +
+  scale_y_continuous(labels = function(b) { paste(b, '%', sep='')}) +
+  scale_fill_brewer(palette="Dark2", name = "", labels = c("DSP, Aged 16-20", 
+                                                           "DSP, Aged 21-24", 
+                                                           "DSP, Aged 25-34", 
+                                                           "DSP, Aged 35-44", 
+                                                           "DSP, Aged 45-54", 
+                                                           "DSP, Aged 55-64", 
+                                                           "DSP, Aged 65+")) +
+  labs(title = "DSP by Age", subtitle = "Percentile Change from June 2014, to March 2021. Source: DSS Payment Demographic Data.", x = "", y="") +
+  theme(
+    legend.position="right",
+    legend.direction = "vertical",
+    axis.text.x = element_text(angle = 45, vjust = 0.5, hjust = 0.75),
+    axis.text.y = element_text())
+p6a
+ggsave("chart6a.png", p6a)
 
 
 df$Diff.DSP.16.20 <- ( ( df$DSP.16.20 - df[length(df$DSP.16.20), 'DSP.16.20']) ) 
@@ -431,7 +451,9 @@ df$Diff.DSP.65 <- ( ( df$DSP.65 - df[length(df$DSP.65), 'DSP.65']))
 
 dfm7 <- melt(df, id.vars = c("Date"), measure.vars = c('Diff.DSP.16.20', 'Diff.DSP.21.24', 'Diff.DSP.25.34', 'Diff.DSP.35.44', 'Diff.DSP.45.54', 'Diff.DSP.55.64', 'Diff.DSP.65', 'Diff.Partial.NS'))
 dfm7$strdate <- strftime(dfm7$Date, "%b %y")
-dfm7
+dfm7a <- melt(df, id.vars = c("Date"), measure.vars = c('Diff.DSP.16.20', 'Diff.DSP.21.24', 'Diff.DSP.25.34', 'Diff.DSP.35.44', 'Diff.DSP.45.54', 'Diff.DSP.55.64', 'Diff.DSP.65'))
+dfm7a$strdate <- strftime(dfm7a$Date, "%b %y")
+
 
 
 p7 <- ggplot(data=dfm7, aes(x=reorder(strdate, Date), y=value / 1000)) +
@@ -445,11 +467,11 @@ p7 <- ggplot(data=dfm7, aes(x=reorder(strdate, Date), y=value / 1000)) +
                                                            "DSP, Aged 35-44", 
                                                            "DSP, Aged 45-54", 
                                                            "DSP, Aged 55-64", 
-                                                           "DSP, Aged 65 and over",
-                                                           "JobSeeker with Partial Capacity to Work")) +
+                                                           "DSP, Aged 65+",
+                                                           "JobSeeker, PCW")) +
   labs(title = "DSP by Age; JobSeeker with Partial Capacity to Work", subtitle = "Change from June 2014, to March 2021. Source: DSS Payment Demographic Data.", x = "", y="") +
   theme(
-    legend.position="bottom",
+    legend.position="right",
     legend.direction = "vertical",
     axis.text.x = element_text(angle = 45, vjust = 0.5, hjust = 0.75),
     axis.text.y = element_text())
@@ -457,3 +479,27 @@ p7 <- ggplot(data=dfm7, aes(x=reorder(strdate, Date), y=value / 1000)) +
 
 p7
 ggsave("chart7.png", p7)
+
+p7a <- ggplot(data=dfm7a, aes(x=reorder(strdate, Date), y=value / 1000)) +
+  geom_bar(stat="identity", aes(fill=variable), width = 0.6, position=position_dodge(width = 0.7)) +
+  theme_bw()  +
+  scale_x_discrete(breaks = dfm$strdate, labels = dfm$strdate) +
+  scale_y_continuous(labels = function(b) { paste(b, 'K', sep='')}) +
+  scale_fill_brewer(palette="Dark2", name = "", labels = c("DSP, Aged 16-20", 
+                                                           "DSP, Aged 21-24", 
+                                                           "DSP, Aged 25-34", 
+                                                           "DSP, Aged 35-44", 
+                                                           "DSP, Aged 45-54", 
+                                                           "DSP, Aged 55-64", 
+                                                           "DSP, Aged 65+")) +
+  labs(title = "DSP by Age", subtitle = "Change from June 2014, to March 2021. Source: DSS Payment Demographic Data.", x = "", y="") +
+  theme(
+    legend.position="right",
+    legend.direction = "vertical",
+    axis.text.x = element_text(angle = 45, vjust = 0.5, hjust = 0.75),
+    axis.text.y = element_text())
+
+
+p7a
+ggsave("chart7s.png", p7a)
+
